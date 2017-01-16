@@ -100,7 +100,7 @@ if [ `echo ${containers} | wc -c` -gt "1" ]; then
                                 dst_port=`echo ${dst} | awk -F'/' '{ print $1 }'`
                                 dst_proto=`echo ${dst} | awk -F'/' '{ print $2 }'`
 
-                                iptables -A OUTPUT ! -o lo -p ${dst_proto} -m conntrack --ctstate NEW -m ${dst_proto} --dport ${dst_proto} -j ACCEPT
+                                iptables -A OUTPUT ! -o lo -p ${dst_proto} -m conntrack --ctstate NEW -m ${dst_proto} --dport ${dst_port} -j ACCEPT
 
                                 iptables -A DOCKER -d ${ipaddr}/32 ! -i ${DOCKER_NET_INT} -o ${DOCKER_NET_INT} -p ${dst_proto} -m ${dst_proto} --dport ${dst_port} -j ACCEPT
 
